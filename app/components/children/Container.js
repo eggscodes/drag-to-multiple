@@ -15,8 +15,9 @@ class Container extends Component {
     super(props);
     this.state = {
       items: {
-        a: { top: 20, left: 80, title: 'Drag me around' },
-        b: { top: 180, left: 20, title: 'Drag me too' }
+        a: { top: 180, left: 50, title: 'Drag me around' },
+        b: { top: 180, left: 100, title: 'Drag me too' },
+        c: { top: 180, left: 150, title: 'Drag me too' }
       }
     };
   }
@@ -39,17 +40,28 @@ class Container extends Component {
         width: '400px',
         border: '5px solid blue'
       }}>
-        <Item name="&#128009;"
-          type={ItemTypes.STUFF}
-          top={this.state.items.a.top}
-          left={this.state.items.a.left}
-          hideSourceOnDrag={hideSourceOnDrag} />
-        <Item name="&#9822;" type={ItemTypes.MORESTUFF} top={this.state.items.a.top} hideSourceOnDrag={hideSourceOnDrag}/>
-        <Item name="&#128120;" type={ItemTypes.LESSSTUFF} hideSourceOnDrag={hideSourceOnDrag}/>
-
-        <Bin accepts={ItemTypes.STUFF} />
-        <Bin accepts={ItemTypes.MORESTUFF} />
-        <Bin accepts={ItemTypes.LESSSTUFF} />
+        <p>
+          <Bin accepts={ItemTypes.STUFF} />
+          <Bin accepts={ItemTypes.MORESTUFF} />
+          <Bin accepts={ItemTypes.LESSSTUFF} />
+        </p>
+        <p>
+          <Item name="&#128009;"
+            type={ItemTypes.STUFF}
+            top={this.state.items.a.top}
+            left={this.state.items.a.left}
+            hideSourceOnDrag={hideSourceOnDrag} />
+          <Item name="&#9822;"
+            type={ItemTypes.MORESTUFF}
+            top={this.state.items.b.top}
+            left={this.state.items.b.left}
+            hideSourceOnDrag={hideSourceOnDrag}/>
+          <Item name="&#128120;"
+            type={ItemTypes.LESSSTUFF}
+            top={this.state.items.c.top}
+            left={this.state.items.c.left}
+            hideSourceOnDrag={hideSourceOnDrag}/>
+        </p>
       </div>
     );
   }

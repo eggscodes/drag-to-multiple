@@ -3,6 +3,7 @@ import { DragSource } from 'react-dnd';
 import ItemTypes from '../../../utils/ItemTypes';
 import PropTypes from 'prop-types';
 
+const style = "position: absolute";
 const itemSource = {
   beginDrag: function (props) {
     const { id, left, top } = props;
@@ -27,7 +28,6 @@ function collect(connect, monitor) {
 
 class Item extends Component {
   render() {
-    console.log(this.props);
     const { name, hideSourceOnDrag, left, top,
       isDragging, connectDragSource, children } = this.props;
 
@@ -36,8 +36,10 @@ class Item extends Component {
     }
 
     return connectDragSource(
-      <div style = {{ left, top }}>
-        <p>{name}</p>
+      <div style = {{
+        position: 'absolute',
+        style, left, top }}>
+        {name}
       </div>
     );
   }
