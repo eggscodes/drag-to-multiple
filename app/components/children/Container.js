@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import update from 'react/lib/update';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
-import ItemTypes from '../utils/ItemTypes';
+import ItemTypes from '../../utils/ItemTypes';
 import PropTypes from 'prop-types';
 
-import Bin from './children/Bin';
-import Item from './children/Item';
+import Bin from './grandchildren/Bin';
+import Item from './grandchildren/Item';
 
 // need to separate Bin and Container from react-dnd example
 
@@ -32,15 +32,20 @@ class Container extends Component {
   }
 
   render() {
+    const { hideSourceOnDrag } = this.props;
     return (
       <div style = {{
         height: '400px',
         width: '400px',
         border: '5px solid blue'
       }}>
-        <Item name="&#128009;" type={ItemTypes.STUFF} />
-        <Item name="&#9822;" type={ItemTypes.MORESTUFF}/>
-        <Item name="&#128120;" type={ItemTypes.LESSSTUFF}/>
+        <Item name="&#128009;"
+          type={ItemTypes.STUFF}
+          top={this.state.items.a.top}
+          left={this.state.items.a.left}
+          hideSourceOnDrag={hideSourceOnDrag} />
+        <Item name="&#9822;" type={ItemTypes.MORESTUFF} top={this.state.items.a.top} hideSourceOnDrag={hideSourceOnDrag}/>
+        <Item name="&#128120;" type={ItemTypes.LESSSTUFF} hideSourceOnDrag={hideSourceOnDrag}/>
 
         <Bin accepts={ItemTypes.STUFF} />
         <Bin accepts={ItemTypes.MORESTUFF} />
@@ -51,8 +56,7 @@ class Container extends Component {
 }
 
 Container.propTypes = {
-  hideSourceOnDrag: PropTypes.bool.isRequired,
-  connectDropTarget: PropTypes.func.isRequired
+  hideSourceOnDrag: PropTypes.bool.isRequired
 };
 
 export default DragDropContext(HTML5Backend)(Container);

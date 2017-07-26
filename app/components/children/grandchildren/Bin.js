@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
-import ItemTypes from '../../utils/ItemTypes';
+import ItemTypes from '../../../utils/ItemTypes';
 
 const binTarget = {
   drop: function () {

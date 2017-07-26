@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DragSource } from 'react-dnd';
-import ItemTypes from '../../utils/ItemTypes';
+import ItemTypes from '../../../utils/ItemTypes';
 import PropTypes from 'prop-types';
 
 const itemSource = {
@@ -27,6 +27,7 @@ function collect(connect, monitor) {
 
 class Item extends Component {
   render() {
+    console.log(this.props);
     const { name, hideSourceOnDrag, left, top,
       isDragging, connectDragSource, children } = this.props;
 
