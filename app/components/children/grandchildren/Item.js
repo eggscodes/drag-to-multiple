@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DragSource } from 'react-dnd';
 import ItemTypes from '../../utils/ItemTypes';
-
+import PropTypes from 'prop-types';
 
 const itemSource = {
   beginDrag: function (props) {
@@ -27,7 +27,12 @@ function collect(connect, monitor) {
 
 class Item extends Component {
   render() {
-    const { name, left, top, isDragging, connectDragSource, children } = this.props;
+    const { name, hideSourceOnDrag, left, top,
+      isDragging, connectDragSource, children } = this.props;
+
+    if (isDragging && hideSourceOnDrag) {
+      return null;
+    }
 
     return connectDragSource(
       <div style = {{ left, top }}>
@@ -36,5 +41,16 @@ class Item extends Component {
     );
   }
 }
+
+Item.propTypes = {
+  name: PropTypes.string.isRequired,
+  connectDragSource: PropTypes.func.isRequired,
+  isDragging: PropTypes.bool.isRequired,
+  id: PropTypes.any.isRequired,
+  left: PropTypes.number.isRequired,
+  top: PropTypes.number.isRequired,
+  hideSourceOnDrag: PropTypes.bool.isRequired,
+  children: PropTypes.node
+};
 
 export default DragSource(props => props.type, itemSource, collect)(Item);
