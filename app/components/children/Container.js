@@ -15,14 +15,15 @@ class Container extends Component {
     super(props);
     this.state = {
       items: {
-        a: { top: 180, left: 50, title: 'Drag me around' },
-        b: { top: 180, left: 100, title: 'Drag me too' },
-        c: { top: 180, left: 150, title: 'Drag me too' }
+        a: { name: 'http://gph.to/2h3R26x', left: 50, top: 180, type: ItemTypes.STUFF },
+        b: { name: 'http://gph.to/2vJycoB', left: 100, top: 180, type: ItemTypes.MORESTUFF },
+        c: { name: 'http://gph.to/2tKtSbi', left: 150, top: 180, type: ItemTypes.LESSSTUFF }
       }
     };
   }
 
   moveItem(id, left, top) {
+    console.log(id, left, top);
     this.setState(update(this.state, {
       items: {
         [id]: {
@@ -34,34 +35,32 @@ class Container extends Component {
 
   render() {
     const { hideSourceOnDrag } = this.props;
+    const { items } = this.state;
+
     return (
       <div style = {{
         height: '400px',
         width: '400px',
         border: '5px solid blue'
       }}>
-        <p>
-          <Bin accepts={ItemTypes.STUFF} />
-          <Bin accepts={ItemTypes.MORESTUFF} />
-          <Bin accepts={ItemTypes.LESSSTUFF} />
-        </p>
-        <p>
-          <Item name="&#128009;"
-            type={ItemTypes.STUFF}
-            top={this.state.items.a.top}
-            left={this.state.items.a.left}
-            hideSourceOnDrag={hideSourceOnDrag} />
-          <Item name="&#9822;"
-            type={ItemTypes.MORESTUFF}
-            top={this.state.items.b.top}
-            left={this.state.items.b.left}
-            hideSourceOnDrag={hideSourceOnDrag}/>
-          <Item name="&#128120;"
-            type={ItemTypes.LESSSTUFF}
-            top={this.state.items.c.top}
-            left={this.state.items.c.left}
-            hideSourceOnDrag={hideSourceOnDrag}/>
-        </p>
+        <Bin accepts={ItemTypes.STUFF} moveItem={this.moveItem} />
+        <Bin accepts={ItemTypes.MORESTUFF} moveItem={this.moveItem} />
+        <Bin accepts={ItemTypes.LESSSTUFF} moveItem={this.moveItem} />
+
+        {Object.keys(items).map((key) => {
+          const { name, left, top, type } = items[key];
+          return (
+            <Item
+                key={key}
+                id={key}
+                name={name}
+                left={left}
+                top={top}
+                type={type}
+                hideSourceOnDrag={hideSourceOnDrag}
+              />
+          );
+        })}
       </div>
     );
   }

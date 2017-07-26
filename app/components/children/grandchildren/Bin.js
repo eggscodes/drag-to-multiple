@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
+import update from 'react/lib/update';
 import { DropTarget } from 'react-dnd';
 import ItemTypes from '../../../utils/ItemTypes';
-
-const binTarget = {
-  drop: function () {
-    return { name: 'Bin' };
-  }
-};
+import PropTypes from 'prop-types';
 
 function collect(connect, monitor) {
   return {
@@ -16,10 +12,22 @@ function collect(connect, monitor) {
   };
 }
 
+const binTarget = {
+  drop(props, monitor, component) {
+    const item = monitor.getItem();
+    const delta = monitor.getDifferenceFromInitialOffset();
+    const left = Math.round(item.left + delta.x);
+    const top = Math.round(item.top + delta.y);
+
+    component.props.moveItem(item.id, left, top);
+  }
+};
+
 class Bin extends Component {
+
   render() {
     // console.log(this.props);
-    const { accepts, canDrop, isOver, connectDropTarget } = this.props;
+    const { canDrop, isOver, connectDropTarget } = this.props;
     const isActive = isOver && canDrop;
 
     let backgroundColor = 'blue';
@@ -44,5 +52,11 @@ class Bin extends Component {
     );
   }
 }
+
+Bin.propTypes = {
+  isOver: PropTypes.bool.isRequired,
+  canDrop: PropTypes.bool.isRequired,
+  connectDropTarget: PropTypes.func.isRequired
+};
 
 export default DropTarget(props => props.accepts, binTarget, collect)(Bin);

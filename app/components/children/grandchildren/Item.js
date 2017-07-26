@@ -3,11 +3,10 @@ import { DragSource } from 'react-dnd';
 import ItemTypes from '../../../utils/ItemTypes';
 import PropTypes from 'prop-types';
 
-const style = "position: absolute";
 const itemSource = {
   beginDrag: function (props) {
-    const { id, left, top } = props;
-    return { id, left, top };
+    const { id, top, left } = props;
+    return { id, top, left };
   },
   endDrag: function (props, monitor) {
     const item = monitor.getItem();
@@ -27,19 +26,18 @@ function collect(connect, monitor) {
 }
 
 class Item extends Component {
+
   render() {
     const { name, hideSourceOnDrag, left, top,
-      isDragging, connectDragSource, children } = this.props;
+      isDragging, connectDragSource } = this.props;
 
     if (isDragging && hideSourceOnDrag) {
       return null;
     }
 
     return connectDragSource(
-      <div style = {{
-        position: 'absolute',
-        style, left, top }}>
-        {name}
+      <div style = {{ position: 'absolute', left, top }}>
+        <img src={name} alt="gif" height="25px" width="auto" />
       </div>
     );
   }
