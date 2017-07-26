@@ -6,6 +6,8 @@ import ItemTypes from '../utils/ItemTypes';
 import Bin from './children/Bin';
 import Item from './children/Item';
 
+// need to separate Bin and Container from react-dnd example
+
 class Container extends Component {
   render() {
     return (
