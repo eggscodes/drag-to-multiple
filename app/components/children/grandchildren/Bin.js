@@ -45,7 +45,7 @@ class Bin extends Component {
         borderRadius: '50%',
         margin: '10px',
         float: 'left',
-        backgroundColor: { backgroundColor }
+        backgroundColor
       }}>
         {isActive ? 'Relase to drop' : 'Drag an Item here'}
       </div>

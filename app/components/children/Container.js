@@ -20,16 +20,17 @@ class Container extends Component {
         c: { name: 'http://gph.to/2tKtSbi', left: 150, top: 180, type: ItemTypes.LESSSTUFF }
       }
     };
+    this.moveItem = this.moveItem.bind(this);
   }
 
   moveItem(id, left, top) {
     console.log(id, left, top);
     this.setState(update(this.state, {
-      items: {
-        [id]: {
-          $merge: { left, top }
+        items: {
+            [id]: {
+                $merge: { left, top }
+            }
         }
-      }
     }));
   }
 
